@@ -1,0 +1,59 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: Code Pipeline Slack Notifier
+
+Parameters:
+  SlackToken:
+    MinLength: 1
+    Type: String
+    NoEcho: True
+  SlackChannel:
+    Type: String
+    MinLength: 1
+    Default: builds
+  SlackBotName:
+    MinLength: 1
+    Type: String
+    Default: PipelineBuildBot
+  SlackBotIcon:
+    MinLength: 1
+    Type: String
+    Default: ":robot_face:"
+
+Resources:
+  Notifier:
+    Type: AWS::Serverless::Function
+    Properties:
+      Runtime: python2.7
+      Timeout: 30
+      MemorySize: 256
+      CodeUri: ./target/pkg/lambda.zip
+      Handler: notifier.run
+      ReservedConcurrentExecutions: 1
+      Environment:
+        Variables:
+          SLACK_TOKEN: !Ref SlackToken
+          SLACK_BOT_NAME: !Ref SlackBotName
+          SLACK_BOT_ICON: !Ref SlackBotIcon
+
+      Policies:
+        - AWSLambdaBasicExecutionRole
+        - Version: '2012-10-17'
+          Statement:
+            - Effect: Allow
+              Action:
+                - 'codepipeline:Get*'
+                - 'codepipeline:List*'
+              Resource: '*'
+            - Effect: Allow
+              Action:
+                - 'codebuild:Get*'
+              Resource: '*'
+      Events:
+        CodePipelineEvent:
+          Type: CloudWatchEvent
+          Properties:
+            Pattern:
+              source:
+              - aws.codepipeline
+              - aws.codebuild
