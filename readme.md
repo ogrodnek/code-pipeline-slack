@@ -1,6 +1,9 @@
 Code Pipeline Slack Bot
 =======================
 
+This bot will notify you of CodePipeline progress (using [CloudWatch Events](https://docs.aws.amazon.com/AmazonCloudWatch/latest/events/WhatIsCloudWatchEvents.html)).
+
+We attempt to provide a unified summary, by pulling together multiple events, as well as information obtained by the API into a single message view.
 
 ![Build](build.gif)
 
@@ -14,7 +17,7 @@ Code Pipeline Slack Bot
 
 ## Configuration / Customization
 
-The bot will notify you of all CodePipeline events (using [CloudWatch Events](https://docs.aws.amazon.com/AmazonCloudWatch/latest/events/WhatIsCloudWatchEvents.html)).
+No configuration is necessary per pipeline.  As part of the CF Stack, we subscribe to all CodePipeline and CodeBuild events (using [CloudWatch Events](https://docs.aws.amazon.com/AmazonCloudWatch/latest/events/WhatIsCloudWatchEvents.html)).
 
 When creating the CloudFormation stack, you can customize:
 
@@ -28,7 +31,7 @@ Additionally, you must provide `SlackToken`, (see [BotUsers](https://api.slack.c
 
 We utilize [CloudWatch Events](https://docs.aws.amazon.com/AmazonCloudWatch/latest/events/WhatIsCloudWatchEvents.html) for CodePipline and CodeBuild to get notified of all status changes.
 
-Using the notifications, as well as using the CodePipeline APIs, we are able to present a summary of your Pipeline and Build status. 
+Using the notifications, as well as using the CodePipeline APIs, we are able to present a unified summary of your Pipeline and Build status.
 
 ### IAM permissions
 
