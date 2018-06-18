@@ -14,7 +14,7 @@ Code Pipeline Slack Bot
 
 ## Configuration / Customization
 
-The bot will notify you of all CodePipeline events.
+The bot will notify you of all CodePipeline events (using [CloudWatch Events](https://docs.aws.amazon.com/AmazonCloudWatch/latest/events/WhatIsCloudWatchEvents.html)).
 
 When creating the CloudFormation stack, you can customize:
 
