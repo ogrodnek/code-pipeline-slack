@@ -50,4 +50,4 @@ Policies:
         Resource: '*'
 ```
 
-So we can retrieve information about all pipelines and builds.
+So we can retrieve information about all pipelines and builds.  See [template.yml](https://github.com/ogrodnek/code-pipeline-slack/blob/master/template.yml) for more detail.
