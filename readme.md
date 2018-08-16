@@ -25,8 +25,7 @@ When creating the CloudFormation stack, you can customize:
 - `SlackBotName` (defaults to `PipelineBuildBot`).
 - `SlackBotIcon` (defaults to `:robot_face:` 🤖 ).
 
-Additionally, you must provide both a `SlackOAuthAccessToken` and a `SlackBotUserOAuthAccessToken`, (see [BotUsers](https://api.slack.com/bot-users) for creating a slack bot user with an OAuth token). It is required to add the permission scope 'Access user’s public channels' (channels:history).
-
+Additionally, you must provide both a `SlackOAuthAccessToken` and a `SlackBotUserOAuthAccessToken`, (see [BotUsers](https://api.slack.com/bot-users) for creating a slack bot user with an OAuth token). If you have the legacy integration token, just add that token to both fields. It is required to add the permission scope 'Access user’s public channels' (channels:history).
 
 ## How it works
 
