@@ -3,7 +3,11 @@ Transform: AWS::Serverless-2016-10-31
 Description: Code Pipeline Slack Notifier
 
 Parameters:
-  SlackToken:
+  SlackOAuthAccessToken:
+    MinLength: 1
+    Type: String
+    NoEcho: True
+  SlackBotUserOAuthAccessToken:
     MinLength: 1
     Type: String
     NoEcho: True
@@ -32,7 +36,8 @@ Resources:
       ReservedConcurrentExecutions: 1
       Environment:
         Variables:
-          SLACK_TOKEN: !Ref SlackToken
+          SLACK_TOKEN: !Ref SlackOAuthAccessToken
+          SLACK_BOT_TOKEN: !Ref SlackBotUserOAuthAccessToken
           SLACK_BOT_NAME: !Ref SlackBotName
           SLACK_BOT_ICON: !Ref SlackBotIcon
 

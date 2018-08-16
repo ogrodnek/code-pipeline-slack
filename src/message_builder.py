@@ -1,6 +1,10 @@
 # -*- coding: utf-8 -*-
 
 import json
+import logging
+logger = logging.getLogger()
+logger.setLevel(logging.INFO)
+
 from collections import OrderedDict
 
 class MessageBuilder(object):
@@ -10,12 +14,12 @@ class MessageBuilder(object):
     self.messageId = None
 
     if message:
-      print(json.dumps(message, indent=2))
+      logger.info(json.dumps(message, indent=2))
       att = message['attachments'][0]
       self.fields = att['fields']
       self.actions = att.get('actions', [])
       self.messageId = message['ts']
-      print("Actions {}".format(self.actions))
+      logger.info("Actions {}".format(self.actions))
     else:
       self.fields = [
         { "title" : buildInfo.pipeline,
@@ -32,11 +36,18 @@ class MessageBuilder(object):
 
   def attachRevisionInfo(self, rev):
     if self.needsRevisionInfo() and rev:
-      self.fields.append({
+      if 'revisionUrl' in rev:
+        self.fields.append({
           "title": "Revision",
           "value": "<{}|{}: {}>".format(rev['revisionUrl'], rev['revisionId'][:7], rev['revisionSummary']),
           "short": True
-      })
+        })
+      else:
+        self.fields.append({
+          "title": "Revision",
+          "value": rev['revisionSummary'],
+          "short": True
+        })
 
   def attachLogs(self, logs):
     self.findOrCreateAction('Build Logs', logs['deep-link'])
