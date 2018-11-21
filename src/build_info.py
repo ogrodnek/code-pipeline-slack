@@ -1,5 +1,7 @@
 import json
-
+import logging
+logger = logging.getLogger()
+logger.setLevel(logging.INFO)
 
 class CodeBuildInfo(object):
   def __init__(self, pipeline, buildId):
@@ -8,7 +10,7 @@ class CodeBuildInfo(object):
   
   @staticmethod
   def fromEvent(event):
-    print(json.dumps(event, indent=2))
+    logger.info(json.dumps(event, indent=2))
     # strip off leading 'codepipeline/'
     pipeline = event['detail']['additional-information']['initiator'][13:]
     bid = event['detail']['build-id']
@@ -39,9 +41,9 @@ class BuildInfo(object):
       detail = event['detail']
       return BuildInfo(detail['execution-id'], detail['pipeline'])
     if event['source'] == "aws.codebuild":
-      print(json.dumps(event, indent=2))
+      logger.info(json.dumps(event, indent=2))
       ph = BuildInfo.pull_phase_info(event)
-      print(json.dumps(ph, indent=2))
+      logger.info(json.dumps(ph, indent=2))
 
     return None
 

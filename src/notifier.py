@@ -5,13 +5,13 @@ import json
 import boto3
 import time
 
-from test_events import TEST_EVENTS, TEST_ERROR_EVENTS
+# from test_events import TEST_EVENTS, TEST_ERROR_EVENTS
 from build_info import BuildInfo, CodeBuildInfo
 from slack_helper import post_build_msg, find_message_for_build
 from message_builder import MessageBuilder
 
-import re
-import sys
+# import re
+# import sys
 
 client = boto3.client('codepipeline')
 

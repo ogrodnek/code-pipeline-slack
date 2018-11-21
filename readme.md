@@ -25,13 +25,14 @@ When creating the CloudFormation stack, you can customize:
 - `SlackBotName` (defaults to `PipelineBuildBot`).
 - `SlackBotIcon` (defaults to `:robot_face:` 🤖 ).
 
-Additionally, you must provide `SlackToken`, (see [BotUsers](https://api.slack.com/custom-integrations/bot-users) for creating a slack bot user with an integration token).
+Additionally, you must provide both a `SlackOAuthAccessToken` and a `SlackBotUserOAuthAccessToken`, (see [BotUsers](https://api.slack.com/bot-users) for creating a slack bot user with an OAuth token). If you have the legacy integration token, just add that token to both fields. It is required to add the permission scope 'Access user’s public channels' (channels:history).
 
 ## How it works
 
 We utilize [CloudWatch Events](https://docs.aws.amazon.com/AmazonCloudWatch/latest/events/WhatIsCloudWatchEvents.html) for CodePipline and CodeBuild to get notified of all status changes.
 
 Using the notifications, as well as using the CodePipeline APIs, we are able to present a unified summary of your Pipeline and Build status.
+
 
 ### IAM permissions
 
